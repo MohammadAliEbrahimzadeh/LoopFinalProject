@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ce32020d-80f2-488e-ab02-2911a80d84ad": {
+      "ProjectGuid": "ce32020d-80f2-488e-ab02-2911a80d84ad",
+      "DisplayName": "LoopMainProject.Model",
+      "ColorIndex": 0
+    },
+    "c950d74b-899e-4bc2-99ba-d7fd5adab3c7": {
+      "ProjectGuid": "c950d74b-899e-4bc2-99ba-d7fd5adab3c7",
+      "DisplayName": "LoopMainProject.Host",
+      "ColorIndex": 1
+    },
+    "6918ef4c-ea57-4beb-969d-1f5e1184da3a": {
+      "ProjectGuid": "6918ef4c-ea57-4beb-969d-1f5e1184da3a",
+      "DisplayName": "LoopMainProject.DataAccess",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "dc0b247c-cd24-401a-bd5b-1bbe592e30ee": {
+      "ProjectGuid": "dc0b247c-cd24-401a-bd5b-1bbe592e30ee",
+      "DisplayName": "LoopMainProject.Api",
+      "ColorIndex": 3
+    },
+    "fe11de44-0127-4056-9ae1-8d11322e8859": {
+      "ProjectGuid": "fe11de44-0127-4056-9ae1-8d11322e8859",
+      "DisplayName": "LoopMainProject.Common",
+      "ColorIndex": 4
+    },
+    "bf850fcf-8d62-416a-8461-701c0bc5223c": {
+      "ProjectGuid": "bf850fcf-8d62-416a-8461-701c0bc5223c",
+      "DisplayName": "LoopMainProject.Business",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}
