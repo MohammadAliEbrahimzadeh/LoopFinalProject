@@ -1,4 +1,5 @@
-﻿using LoopMainProject.DataAccess.Repositories;
+﻿using LoopMainProject.DataAccess.Base;
+using LoopMainProject.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace LoopMainProject.DataAccess.Contract
         UserRepository? UserRepository { get;}
 
         PostRepository? PostRepository { get; }
+
+        CommentRepository? CommentRepository { get; }
+
+        ReplyRepository? ReplyRepository { get; }
 
         int Commit();
 

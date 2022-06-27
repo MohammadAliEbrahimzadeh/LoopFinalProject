@@ -1,4 +1,5 @@
-﻿using LoopMainProject.DataAccess.Context;
+﻿using LoopMainProject.DataAccess.Base;
+using LoopMainProject.DataAccess.Context;
 using LoopMainProject.DataAccess.Contract;
 using LoopMainProject.DataAccess.Repositories;
 
@@ -19,6 +20,10 @@ namespace LoopMainProject.DataAccess
         private UserRepository? _userRepository;
 
         private PostRepository? _postRepository;
+
+        private CommentRepository? _commentRepository;
+
+        private ReplyRepository? _replyRepository;
     }
 
     public partial class UnitOfWork
@@ -29,6 +34,12 @@ namespace LoopMainProject.DataAccess
 
         public PostRepository PostRepository =>
     _postRepository ??= new PostRepository(_context);
+
+        public CommentRepository CommentRepository =>
+_commentRepository ??= new CommentRepository(_context);
+
+        public ReplyRepository ReplyRepository =>
+_replyRepository ??= new ReplyRepository(_context);
 
     }
 

@@ -26,5 +26,11 @@ namespace LoopMainProject.Model.Entities
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+
+        public Reply Parent { get; set; }
+
+        [ForeignKey("Parent")]
+        public int? ParentId { get; set; }
+
     }
 }

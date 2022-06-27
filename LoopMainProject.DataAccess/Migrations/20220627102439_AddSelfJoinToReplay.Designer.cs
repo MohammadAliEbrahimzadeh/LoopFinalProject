@@ -4,6 +4,7 @@ using LoopMainProject.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoopMainProject.DataAccess.Migrations
 {
     [DbContext(typeof(LoopMainProjectContext))]
-    partial class LoopMainProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220627102439_AddSelfJoinToReplay")]
+    partial class AddSelfJoinToReplay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,9 +147,6 @@ namespace LoopMainProject.DataAccess.Migrations
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -161,8 +160,6 @@ namespace LoopMainProject.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
-
-                    b.HasIndex("ParentId");
 
                     b.HasIndex("UserId");
 
@@ -207,10 +204,6 @@ namespace LoopMainProject.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LoopMainProject.Model.Entities.Reply", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
-
                     b.HasOne("LoopMainProject.Model.Entities.ApplicationUser", "User")
                         .WithMany("Replies")
                         .HasForeignKey("UserId")
@@ -218,8 +211,6 @@ namespace LoopMainProject.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Comment");
-
-                    b.Navigation("Parent");
 
                     b.Navigation("User");
                 });

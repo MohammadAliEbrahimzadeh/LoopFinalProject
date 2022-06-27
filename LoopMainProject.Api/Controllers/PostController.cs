@@ -45,7 +45,38 @@ namespace LoopMainProject.Api.Controllers
 
         }
 
+        [HttpPost]
+        [Route("CreateComment/{postId?}")]
+        [Authorize]
+        public async Task<SamanSalamatResponse> CreateComment(CreateCommentViewModel createCommentVM, CancellationToken cancellationToken, int postId)
+        {
+            try
+            {
+                return await _postService.CreateComment(_httpContext.HttpContext.User.GetUserId(), postId, createCommentVM, cancellationToken);
+            }
+            catch (Exception)
+            {
+                //Todo Nlog
+                throw;
+            }
+           
+        }
 
-        //public async Task<SamanSalamatResponse> CreateComment()
+        [HttpPost]
+        [Route("CreateReplay/{commentId?}")]
+        [Authorize]
+        public async Task<SamanSalamatResponse> CreateReplay(CreateCommentViewModel createCommentVM, CancellationToken cancellationToken, int commentId, int replyId)
+        {
+            try
+            {
+                return await _postService.CreateReplay(_httpContext.HttpContext.User.GetUserId(), commentId, replyId, createCommentVM, cancellationToken);
+            }
+            catch (Exception)
+            {
+                //Todo Nlog
+                throw;
+            }
+           
+        }
     }
 }

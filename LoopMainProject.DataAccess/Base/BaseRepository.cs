@@ -23,10 +23,13 @@ namespace LoopMainProject.DataAccess.Base
     {
         public async Task<T> CreateAsync(T t, CancellationToken cancellationToken) => (await _dbSet.AddAsync(t, cancellationToken)).Entity;
 
+        public async Task<T> GetEntityById(CancellationToken cancellationToken, int id) => (await _dbSet.SingleOrDefaultAsync(a => a.Id == id));
 
-        public async Task<T> GetEntityById(T t, CancellationToken cancellationToken, int id) => (await _dbSet.SingleOrDefaultAsync(a => a.Id == id));
-
-
+        public async Task<T> UpdateAsync(T t, CancellationToken cancellationToken = new())
+        {
+            t.LastUpdated = DateTime.Now;
+            return (await Task.FromResult(_dbSet.Update(t))).Entity;
+        }
 
 
     }
