@@ -70,17 +70,6 @@ namespace LoopMainProject.Api.Controllers
             }
         }
 
-        [Route("Test")]
-        [Authorize]
-        [HttpGet]
-        public async Task<SamanSalamatResponse> Test()
-        {
-            var userId = _httpContext.HttpContext.User.GetUserId();
-            return new SamanSalamatResponse()
-            {
-                Message = "hi"
-            };
-        }
 
         [Route("LogOut")]
         [Authorize]

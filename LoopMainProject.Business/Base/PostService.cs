@@ -107,7 +107,7 @@ namespace LoopMainProject.Business.Base
             };
 
             var comments = await _unitOfWork.CommentRepository.GetPostByCommentId(commentId, cancellationToken);
-           
+
             if (replyId != null && replyId != 0)
                 newReplay.ParentId = replyId;
 
@@ -128,5 +128,138 @@ namespace LoopMainProject.Business.Base
                 ChangedId = newReplay.Id,
             };
         }
+
+        public async Task<SamanSalamatResponse> CreateUpvotePost(string userId, int postId, CancellationToken cancellationToken)
+        {
+            var post = await _unitOfWork.PostRepository.GetEntityById(cancellationToken, postId);
+
+            if (post == null)
+            {
+                return new SamanSalamatResponse()
+                {
+                    IsSuccess = false,
+                    Message = "No Post Was Found"
+                };
+            }
+
+            var newVote = new Vote();
+
+            if (await _unitOfWork.PostRepository.HasVotedForPostBefore(postId, Int32.Parse(userId), cancellationToken))
+            {
+
+                var votes = await _unitOfWork.VoteRepository.GetLastUsersPostVote(Int32.Parse(userId), postId, cancellationToken);
+
+                if (votes != null && votes.VotesEnum == VotesEnum.Upvote)
+                    return new SamanSalamatResponse()
+                    {
+                        IsSuccess = false,
+                        Message = "User Has Upvoted Before"
+                    };
+
+                post.DownvotesCount = post.DownvotesCount - 1;
+                post.UpvotesCount = post.UpvotesCount + 1;
+                await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
+
+                newVote.VotesEnum = VotesEnum.Upvote;
+                newVote.PostId = postId;
+                newVote.ApplicationUserId = Int32.Parse(userId);
+
+                await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
+                await _unitOfWork.CommitAsync(cancellationToken);
+
+                return new SamanSalamatResponse()
+                {
+                    IsSuccess = true,
+                    Message = "User Upvoted",
+                    ChangedId = postId,
+                };
+            }
+
+
+            post.UpvotesCount = post.UpvotesCount + 1;
+            await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
+
+            newVote.VotesEnum = VotesEnum.Upvote;
+            newVote.PostId = postId;
+            newVote.ApplicationUserId = Int32.Parse(userId);
+
+            await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            return new SamanSalamatResponse()
+            {
+                IsSuccess = true,
+                Message = "User Upvoted",
+                ChangedId = postId,
+            };
+
+        }
+
+        public async Task<SamanSalamatResponse> CreateDownvotePost(string userId, int postId, CancellationToken cancellationToken)
+        {
+            var post = await _unitOfWork.PostRepository.GetEntityById(cancellationToken, postId);
+
+            if (post == null)
+            {
+                return new SamanSalamatResponse()
+                {
+                    IsSuccess = false,
+                    Message = "No Post Was Found"
+                };
+            }
+
+            var newVote = new Vote();
+
+            if (await _unitOfWork.PostRepository.HasVotedForPostBefore(postId, Int32.Parse(userId), cancellationToken))
+            {
+
+                var votes = await _unitOfWork.VoteRepository.GetLastUsersPostVote(Int32.Parse(userId), postId, cancellationToken);
+
+                if (votes != null && votes.VotesEnum == VotesEnum.Downvote)
+                    return new SamanSalamatResponse()
+                    {
+                        IsSuccess = false,
+                        Message = "User Has Downvoted Before"
+                    };
+
+                post.DownvotesCount = post.DownvotesCount + 1;
+                post.UpvotesCount = post.UpvotesCount - 1;
+                await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
+
+                newVote.VotesEnum = VotesEnum.Downvote;
+                newVote.PostId = postId;
+                newVote.ApplicationUserId = Int32.Parse(userId);
+
+                await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
+                await _unitOfWork.CommitAsync(cancellationToken);
+
+                return new SamanSalamatResponse()
+                {
+                    IsSuccess = true,
+                    Message = "User Downvoted",
+                    ChangedId = postId,
+                };
+            }
+
+
+            post.UpvotesCount = post.DownvotesCount + 1;
+            await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
+
+            newVote.VotesEnum = VotesEnum.Downvote;
+            newVote.PostId = postId;
+            newVote.ApplicationUserId = Int32.Parse(userId);
+
+            await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
+            await _unitOfWork.CommitAsync(cancellationToken);
+
+            return new SamanSalamatResponse()
+            {
+                IsSuccess = true,
+                Message = "User Upvoted",
+                ChangedId = postId,
+            };
+        }
+
+
     }
 }

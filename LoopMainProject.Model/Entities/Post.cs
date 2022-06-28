@@ -30,5 +30,7 @@ namespace LoopMainProject.Model.Entities
         public int UserId { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Vote> Votes { get; set; }
     }
 }

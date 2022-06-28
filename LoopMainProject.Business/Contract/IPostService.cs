@@ -14,5 +14,9 @@ namespace LoopMainProject.Business.Contract
         Task<SamanSalamatResponse> CreateComment(string userId, int postId, CreateCommentViewModel commentVM, CancellationToken cancellationToken);
 
         Task<SamanSalamatResponse> CreateReplay(string userId, int commentId, int? replyId, CreateCommentViewModel commentVM, CancellationToken cancellationToken);
+
+        Task<SamanSalamatResponse> CreateUpvotePost(string userId, int postId, CancellationToken cancellationToken);
+
+        Task<SamanSalamatResponse> CreateDownvotePost(string userId, int postId, CancellationToken cancellationToken);
     }
 }

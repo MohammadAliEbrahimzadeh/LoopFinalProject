@@ -5,19 +5,29 @@ VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{2C730697-54EA-4235-9E95-E8FBED16B484}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Model", "LoopMainProject.Model\LoopMainProject.Model.csproj", "{CE32020D-80F2-488E-AB02-2911A80D84AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.Model", "LoopMainProject.Model\LoopMainProject.Model.csproj", "{CE32020D-80F2-488E-AB02-2911A80D84AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5DE56E1B-8472-44D6-832D-F8CC948FB200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Host", "LoopMainProject.Host\LoopMainProject.Host.csproj", "{C950D74B-899E-4BC2-99BA-D7FD5ADAB3C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.Host", "LoopMainProject.Host\LoopMainProject.Host.csproj", "{C950D74B-899E-4BC2-99BA-D7FD5ADAB3C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.DataAccess", "LoopMainProject.DataAccess\LoopMainProject.DataAccess.csproj", "{6918EF4C-EA57-4BEB-969D-1F5E1184DA3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.DataAccess", "LoopMainProject.DataAccess\LoopMainProject.DataAccess.csproj", "{6918EF4C-EA57-4BEB-969D-1F5E1184DA3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Api", "LoopMainProject.Api\LoopMainProject.Api.csproj", "{DC0B247C-CD24-401A-BD5B-1BBE592E30EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.Api", "LoopMainProject.Api\LoopMainProject.Api.csproj", "{DC0B247C-CD24-401A-BD5B-1BBE592E30EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Common", "LoopMainProject.Common\LoopMainProject.Common.csproj", "{FE11DE44-0127-4056-9AE1-8D11322E8859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.Common", "LoopMainProject.Common\LoopMainProject.Common.csproj", "{FE11DE44-0127-4056-9AE1-8D11322E8859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Business", "LoopMainProject.Business\LoopMainProject.Business.csproj", "{BF850FCF-8D62-416A-8461-701C0BC5223C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoopMainProject.Business", "LoopMainProject.Business\LoopMainProject.Business.csproj", "{BF850FCF-8D62-416A-8461-701C0BC5223C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7FF538E4-7266-4783-8C56-64CB795C7AD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Intergration", "Intergration", "{B59F8E4C-BCCC-4357-9C60-4531FECD604A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{BA2100D9-3CB0-43D5-8F61-FC1AA7E4A1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Test.Unit", "LoopMainProject.Test.Unit\LoopMainProject.Test.Unit.csproj", "{7EBCFFFC-9628-4766-A7EC-6483B0352061}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoopMainProject.Intergration", "LoopMainProject.Intergration\LoopMainProject.Intergration.csproj", "{F0588A48-195E-4015-B8CC-AFB686E55DCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +59,14 @@ Global
 		{BF850FCF-8D62-416A-8461-701C0BC5223C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF850FCF-8D62-416A-8461-701C0BC5223C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF850FCF-8D62-416A-8461-701C0BC5223C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EBCFFFC-9628-4766-A7EC-6483B0352061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EBCFFFC-9628-4766-A7EC-6483B0352061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EBCFFFC-9628-4766-A7EC-6483B0352061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EBCFFFC-9628-4766-A7EC-6483B0352061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0588A48-195E-4015-B8CC-AFB686E55DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0588A48-195E-4015-B8CC-AFB686E55DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0588A48-195E-4015-B8CC-AFB686E55DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0588A48-195E-4015-B8CC-AFB686E55DCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +78,10 @@ Global
 		{DC0B247C-CD24-401A-BD5B-1BBE592E30EE} = {2C730697-54EA-4235-9E95-E8FBED16B484}
 		{FE11DE44-0127-4056-9AE1-8D11322E8859} = {2C730697-54EA-4235-9E95-E8FBED16B484}
 		{BF850FCF-8D62-416A-8461-701C0BC5223C} = {2C730697-54EA-4235-9E95-E8FBED16B484}
+		{B59F8E4C-BCCC-4357-9C60-4531FECD604A} = {7FF538E4-7266-4783-8C56-64CB795C7AD7}
+		{BA2100D9-3CB0-43D5-8F61-FC1AA7E4A1E1} = {7FF538E4-7266-4783-8C56-64CB795C7AD7}
+		{7EBCFFFC-9628-4766-A7EC-6483B0352061} = {BA2100D9-3CB0-43D5-8F61-FC1AA7E4A1E1}
+		{F0588A48-195E-4015-B8CC-AFB686E55DCF} = {B59F8E4C-BCCC-4357-9C60-4531FECD604A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E4DC93D9-4E15-47A4-8800-4655DFEF9E4C}

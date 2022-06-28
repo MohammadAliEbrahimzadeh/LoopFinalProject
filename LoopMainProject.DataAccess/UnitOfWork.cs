@@ -24,6 +24,8 @@ namespace LoopMainProject.DataAccess
         private CommentRepository? _commentRepository;
 
         private ReplyRepository? _replyRepository;
+
+        private VoteRepository? _voteRepository;
     }
 
     public partial class UnitOfWork
@@ -40,6 +42,9 @@ _commentRepository ??= new CommentRepository(_context);
 
         public ReplyRepository ReplyRepository =>
 _replyRepository ??= new ReplyRepository(_context);
+
+        public VoteRepository VoteRepository =>
+_voteRepository ??= new VoteRepository(_context);
 
     }
 

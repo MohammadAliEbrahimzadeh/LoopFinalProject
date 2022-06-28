@@ -1,6 +1,7 @@
 ﻿using LoopMainProject.DataAccess.Base;
 using LoopMainProject.DataAccess.Context;
 using LoopMainProject.Model.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace LoopMainProject.DataAccess.Repositories
     }
     public partial class PostRepository
     {
-
+        public async Task<bool> HasVotedForPostBefore(int postId, int userId, CancellationToken cancellationToken)
+        {
+            return await _context.Votes.AnyAsync(v => v.ApplicationUserId == userId && v.PostId == postId, cancellationToken);
+        }
+    
     }
 }

@@ -18,6 +18,8 @@ namespace LoopMainProject.DataAccess.Contract
 
         ReplyRepository? ReplyRepository { get; }
 
+        VoteRepository? VoteRepository { get; }
+
         int Commit();
 
         Task<int> CommitAsync(CancellationToken cancellationToken);

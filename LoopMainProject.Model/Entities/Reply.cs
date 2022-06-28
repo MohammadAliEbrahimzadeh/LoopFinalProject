@@ -32,5 +32,7 @@ namespace LoopMainProject.Model.Entities
         [ForeignKey("Parent")]
         public int? ParentId { get; set; }
 
+        public ICollection<Vote> Votes { get; set; }
+
     }
 }

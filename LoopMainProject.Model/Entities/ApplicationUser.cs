@@ -24,5 +24,8 @@ namespace LoopMainProject.Model.Entities
 
         [Sieve(CanSort = true, CanFilter = true)]
         public ICollection<Reply> Replies { get; set; }
+
+
+        public ICollection<Vote> Votes { get; set; }
     }
 }

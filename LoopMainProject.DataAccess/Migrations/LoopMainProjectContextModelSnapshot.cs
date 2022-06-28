@@ -169,6 +169,48 @@ namespace LoopMainProject.DataAccess.Migrations
                     b.ToTable("Replies", (string)null);
                 });
 
+            modelBuilder.Entity("LoopMainProject.Model.Entities.Vote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReplyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VotesEnum")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("ReplyId");
+
+                    b.ToTable("Votes", (string)null);
+                });
+
             modelBuilder.Entity("LoopMainProject.Model.Entities.Comment", b =>
                 {
                     b.HasOne("LoopMainProject.Model.Entities.Post", "Post")
@@ -224,6 +266,38 @@ namespace LoopMainProject.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("LoopMainProject.Model.Entities.Vote", b =>
+                {
+                    b.HasOne("LoopMainProject.Model.Entities.ApplicationUser", "User")
+                        .WithMany("Votes")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("LoopMainProject.Model.Entities.Comment", "Comment")
+                        .WithMany("Votes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("LoopMainProject.Model.Entities.Post", "Post")
+                        .WithMany("Votes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("LoopMainProject.Model.Entities.Reply", "Reply")
+                        .WithMany("Votes")
+                        .HasForeignKey("ReplyId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Reply");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LoopMainProject.Model.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Comments");
@@ -231,16 +305,27 @@ namespace LoopMainProject.DataAccess.Migrations
                     b.Navigation("Posts");
 
                     b.Navigation("Replies");
+
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("LoopMainProject.Model.Entities.Comment", b =>
                 {
                     b.Navigation("Replies");
+
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("LoopMainProject.Model.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("LoopMainProject.Model.Entities.Reply", b =>
+                {
+                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }

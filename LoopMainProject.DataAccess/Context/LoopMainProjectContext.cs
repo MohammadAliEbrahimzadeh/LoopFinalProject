@@ -22,6 +22,8 @@ namespace LoopMainProject.DataAccess.Context
 
         public DbSet<Reply> Replies { get; set; }
 
+        public DbSet<Vote> Votes { get; set; }
+
     }
 
     public partial class LoopMainProjectContext
@@ -43,7 +45,6 @@ namespace LoopMainProject.DataAccess.Context
                .HasForeignKey(fk => fk.UserId).OnDelete(DeleteBehavior.NoAction);
 
             #endregion
-
 
 
             #region Post
@@ -79,6 +80,37 @@ namespace LoopMainProject.DataAccess.Context
                 .WithMany(c => c.Replies)
                 .HasForeignKey(fk => fk.CommentId);
 
+
+            #endregion
+
+
+            #region Vote
+
+
+            modelBuilder.Entity<Vote>().ToTable("Votes");
+
+
+            modelBuilder.Entity<Vote>()
+               .HasOne(c => c.Comment)
+               .WithMany(u => u.Votes)
+               .HasForeignKey(fk => fk.CommentId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Vote>()
+               .HasOne(c => c.Reply)
+               .WithMany(u => u.Votes)
+               .HasForeignKey(fk => fk.ReplyId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<Vote>()
+               .HasOne(c => c.Post)
+               .WithMany(u => u.Votes)
+               .HasForeignKey(fk => fk.PostId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Vote>()
+              .HasOne(c => c.User)
+              .WithMany(u => u.Votes)
+              .HasForeignKey(fk => fk.ApplicationUserId).OnDelete(DeleteBehavior.NoAction);
 
             #endregion
         }

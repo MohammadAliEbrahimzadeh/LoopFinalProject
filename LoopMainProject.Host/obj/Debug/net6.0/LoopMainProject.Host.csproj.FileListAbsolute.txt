@@ -52,7 +52,6 @@ C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.AssemblyInfoInputs.cache
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.AssemblyInfo.cs
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.csproj.CoreCompileInputs.cache
-C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\staticwebassets.development.json
@@ -83,3 +82,4 @@ C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\bin\Debug\net6.
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\bin\Debug\net6.0\System.Web.WebPages.dll
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Host\obj\Debug\net6.0\LoopMainProject.Host.MvcApplicationPartsAssemblyInfo.cs

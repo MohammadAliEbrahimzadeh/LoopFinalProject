@@ -11,26 +11,26 @@ using System.Threading.Tasks;
 
 namespace LoopMainProject.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public partial class BaseController<T> : ControllerBase, IBaseController<T> where T : BaseEntity
-    {
+    //[Route("api/[controller]")]
+    //[ApiController]
+    //public partial class BaseController<T> : ControllerBase, IBaseController<T> where T : BaseEntity
+    //{
 
-        private readonly IBaseBusiness<T> _baseBusiness;
+    //    private readonly IBaseBusiness<T> _baseBusiness;
 
-        public BaseController(IBaseBusiness<T> baseBusiness)
-        {
-            _baseBusiness = baseBusiness;
-        }
-    }
+    //    public BaseController(IBaseBusiness<T> baseBusiness)
+    //    {
+    //        _baseBusiness = baseBusiness;
+    //    }
+    //}
     public partial class BaseController<T>
     {
 
-        [HttpPost]
-        public async Task<SamanSalamatResponse?> CreateAsync(T t, CancellationToken cancellationToken)
-        {
-            return await _baseBusiness.CreateAsync(t, cancellationToken);
-        }
+        //[HttpPost]
+        //public async Task<SamanSalamatResponse?> CreateAsync(T t, CancellationToken cancellationToken)
+        //{
+        //    return await _baseBusiness.CreateAsync(t, cancellationToken);
+        //}
 
 
     }

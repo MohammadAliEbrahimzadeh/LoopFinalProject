@@ -2,7 +2,6 @@ C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\bin\Debug\net6
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\bin\Debug\net6.0\LoopMainProject.Model.dll
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\bin\Debug\net6.0\ref\LoopMainProject.Model.dll
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\bin\Debug\net6.0\LoopMainProject.Model.pdb
-C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.csproj.AssemblyReference.cache
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.AssemblyInfoInputs.cache
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.AssemblyInfo.cs
@@ -12,3 +11,4 @@ C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.pdb
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\bin\Debug\net6.0\LoopMainProject.Model.runtimeconfig.json
 C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.genruntimeconfig.cache
+C:\Users\moham\source\repos\LoopMainProject\LoopMainProject.Model\obj\Debug\net6.0\LoopMainProject.Model.csproj.AssemblyReference.cache

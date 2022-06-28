@@ -59,7 +59,7 @@ namespace LoopMainProject.Api.Controllers
                 //Todo Nlog
                 throw;
             }
-           
+
         }
 
         [HttpPost]
@@ -76,7 +76,39 @@ namespace LoopMainProject.Api.Controllers
                 //Todo Nlog
                 throw;
             }
-           
+
+        }
+
+        [HttpPost]
+        [Route("CreateUpvotePost/{postId?}")]
+        [Authorize]
+        public async Task<SamanSalamatResponse> CreateUpvotePost(int postId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _postService.CreateUpvotePost(_httpContext.HttpContext.User.GetUserId(), postId, cancellationToken);
+            }
+            catch (Exception)
+            {
+                //Todo Nlog
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("CreateDownvotePost/{postId?}")]
+        [Authorize]
+        public async Task<SamanSalamatResponse> CreateDownvotePost(int postId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _postService.CreateDownvotePost(_httpContext.HttpContext.User.GetUserId(), postId, cancellationToken);
+            }
+            catch (Exception)
+            {
+                //Todo Nlog
+                throw;
+            }
         }
     }
 }
