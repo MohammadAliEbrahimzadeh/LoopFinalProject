@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 #region Services
 
@@ -18,6 +19,13 @@ builder.Services.InjectContext(builder.Configuration);
 builder.Services.InjectUnitOfWork();
 builder.Services.InjectUserService();
 builder.Services.InjectPostService();
+builder.Services.InjectVotingService();
+
+#endregion
+
+#region HealthCheck
+
+builder.Services.AddHealthChecks();
 
 #endregion
 
@@ -27,7 +35,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignOutScheme= CookieAuthenticationDefaults.AuthenticationScheme;    
+    options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie(options =>
 {
     options.LoginPath = "/User/Login";
@@ -46,15 +54,29 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseRouting();
+
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+
+    if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
+    {
+        endpoints.MapHealthChecks("/Health");
+    }
+});
+
+
 
 app.Run();
 
 
-
+public partial class Program { }

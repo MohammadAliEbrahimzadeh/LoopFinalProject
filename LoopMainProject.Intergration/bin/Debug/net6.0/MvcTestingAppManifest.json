@@ -1,0 +1,8 @@
+{
+  "LoopMainProject.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.Api",
+  "LoopMainProject.Business, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.Business",
+  "LoopMainProject.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.Common",
+  "LoopMainProject.DataAccess, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.DataAccess",
+  "LoopMainProject.Host, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.Host",
+  "LoopMainProject.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\moham\\source\\repos\\LoopMainProject\\LoopMainProject.Model"
+}

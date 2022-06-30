@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sieve.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,14 +11,16 @@ namespace LoopMainProject.Model.Entities
 {
     public partial class Post : BaseEntity
     {
-
+        [Sieve(CanSort = true, CanFilter = true)]
         public long UpvotesCount { get; set; }
 
+        [Sieve(CanSort = true,CanFilter =true)]
         public long DownvotesCount { get; set; }
 
         public string Text { get; set; }
 
         [MaxLength(250)]
+        [Sieve(CanSort = true, CanFilter = true)]
         public string Title { get; set; }
     }
 
@@ -27,6 +30,7 @@ namespace LoopMainProject.Model.Entities
         public ApplicationUser ApplicationUser { get; set; }
 
         [ForeignKey("ApplicationUser")]
+        [Sieve(CanSort = true, CanFilter = true)]
         public int UserId { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

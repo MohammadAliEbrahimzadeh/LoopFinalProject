@@ -1,14 +1,12 @@
 ﻿using LoopMainProject.Business.Contract;
 using LoopMainProject.Common.Helpers;
 using LoopMainProject.Common.ViewModels;
+using LoopMainProject.Model.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NLog;
+using Sieve.Models;
 
 namespace LoopMainProject.Api.Controllers
 {
@@ -18,6 +16,7 @@ namespace LoopMainProject.Api.Controllers
     {
         private readonly IPostService _postService;
         private readonly IHttpContextAccessor _httpContext;
+        private static Logger _logger = LogManager.GetLogger("LoopTestLogRules");
 
         public PostController(IPostService postService, IHttpContextAccessor contextAccessor)
         {
@@ -26,6 +25,8 @@ namespace LoopMainProject.Api.Controllers
         }
     }
 
+
+    //Creation
     public partial class PostController
     {
         [HttpPost]
@@ -79,36 +80,20 @@ namespace LoopMainProject.Api.Controllers
 
         }
 
-        [HttpPost]
-        [Route("CreateUpvotePost/{postId?}")]
-        [Authorize]
-        public async Task<SamanSalamatResponse> CreateUpvotePost(int postId, CancellationToken cancellationToken)
-        {
-            try
-            {
-                return await _postService.CreateUpvotePost(_httpContext.HttpContext.User.GetUserId(), postId, cancellationToken);
-            }
-            catch (Exception)
-            {
-                //Todo Nlog
-                throw;
-            }
-        }
+    }
 
-        [HttpPost]
-        [Route("CreateDownvotePost/{postId?}")]
-        [Authorize]
-        public async Task<SamanSalamatResponse> CreateDownvotePost(int postId, CancellationToken cancellationToken)
+
+
+    //Filtering
+    public partial class PostController
+    {
+        [HttpGet]
+        [HttpHead]
+        [Route("FilterPosts")]
+        public async Task<SamanSalamatResponse<List<Post>>> FilterPosts([FromQuery] SieveModel sieveModel, string? title, CancellationToken cancellationToken)
         {
-            try
-            {
-                return await _postService.CreateDownvotePost(_httpContext.HttpContext.User.GetUserId(), postId, cancellationToken);
-            }
-            catch (Exception)
-            {
-                //Todo Nlog
-                throw;
-            }
+            return await _postService.SearchPosts(sieveModel, title, cancellationToken);
         }
     }
+
 }

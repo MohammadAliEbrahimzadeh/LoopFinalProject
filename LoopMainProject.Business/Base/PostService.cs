@@ -2,6 +2,8 @@
 using LoopMainProject.Common.ViewModels;
 using LoopMainProject.DataAccess.Contract;
 using LoopMainProject.Model.Entities;
+using Sieve.Models;
+using Sieve.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace LoopMainProject.Business.Base
     {
         private readonly IUnitOfWork _unitOfWork;
 
+
         public PostService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -22,6 +25,7 @@ namespace LoopMainProject.Business.Base
 
     }
 
+    //Creation
     public partial class PostService
     {
         public async Task<SamanSalamatResponse> CreatePost(string userId, CreatePostViewModel postVM, CancellationToken cancellationToken)
@@ -49,7 +53,7 @@ namespace LoopMainProject.Business.Base
 
         public async Task<SamanSalamatResponse> CreateComment(string userId, int postId, CreateCommentViewModel commentVM, CancellationToken cancellationToken)
         {
-            var post = await _unitOfWork.PostRepository.GetEntityById(cancellationToken, postId);
+            var post = await _unitOfWork.PostRepository.GetEntityById(postId, cancellationToken);
 
             if (post == null)
             {
@@ -86,7 +90,7 @@ namespace LoopMainProject.Business.Base
 
         public async Task<SamanSalamatResponse> CreateReplay(string userId, int commentId, int? replyId, CreateCommentViewModel commentVM, CancellationToken cancellationToken)
         {
-            var comment = await _unitOfWork.CommentRepository.GetEntityById(cancellationToken, commentId);
+            var comment = await _unitOfWork.CommentRepository.GetEntityById(commentId, cancellationToken);
 
             if (comment == null)
             {
@@ -129,137 +133,47 @@ namespace LoopMainProject.Business.Base
             };
         }
 
-        public async Task<SamanSalamatResponse> CreateUpvotePost(string userId, int postId, CancellationToken cancellationToken)
+    }
+
+
+    //Filtering
+    public partial class PostService
+    {
+        public async Task<SamanSalamatResponse<List<Post>>?> SearchPosts(SieveModel model, string title, CancellationToken cancellationToken)
         {
-            var post = await _unitOfWork.PostRepository.GetEntityById(cancellationToken, postId);
+            var data = await _unitOfWork.PostRepository.LoadAllPostsAsync(model, cancellationToken);
 
-            if (post == null)
+            if (!string.IsNullOrEmpty(title))
             {
-                return new SamanSalamatResponse()
+                var searchedData = new List<Post>();
+
+                foreach (var item in data)
                 {
-                    IsSuccess = false,
-                    Message = "No Post Was Found"
-                };
-            }
-
-            var newVote = new Vote();
-
-            if (await _unitOfWork.PostRepository.HasVotedForPostBefore(postId, Int32.Parse(userId), cancellationToken))
-            {
-
-                var votes = await _unitOfWork.VoteRepository.GetLastUsersPostVote(Int32.Parse(userId), postId, cancellationToken);
-
-                if (votes != null && votes.VotesEnum == VotesEnum.Upvote)
-                    return new SamanSalamatResponse()
+                    if (item.Title.StartsWith(title) || item.Title.EndsWith(title) || item.Title.Contains(title))
                     {
-                        IsSuccess = false,
-                        Message = "User Has Upvoted Before"
-                    };
+                        searchedData.Add(item);
+                    }
+                }
 
-                post.DownvotesCount = post.DownvotesCount - 1;
-                post.UpvotesCount = post.UpvotesCount + 1;
-                await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
-
-                newVote.VotesEnum = VotesEnum.Upvote;
-                newVote.PostId = postId;
-                newVote.ApplicationUserId = Int32.Parse(userId);
-
-                await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
-                await _unitOfWork.CommitAsync(cancellationToken);
-
-                return new SamanSalamatResponse()
+                return new SamanSalamatResponse<List<Post>>
                 {
-                    IsSuccess = true,
-                    Message = "User Upvoted",
-                    ChangedId = postId,
+                    Data = searchedData,
+                    RecordsTotal = searchedData.Count,
+                    RecordsFiltered = searchedData.Count,
+                    Message = "Data Loaded",
+                    IsSuccess = true
                 };
             }
 
-
-            post.UpvotesCount = post.UpvotesCount + 1;
-            await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
-
-            newVote.VotesEnum = VotesEnum.Upvote;
-            newVote.PostId = postId;
-            newVote.ApplicationUserId = Int32.Parse(userId);
-
-            await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
-            await _unitOfWork.CommitAsync(cancellationToken);
-
-            return new SamanSalamatResponse()
+            return new SamanSalamatResponse<List<Post>>
             {
-                IsSuccess = true,
-                Message = "User Upvoted",
-                ChangedId = postId,
-            };
-
-        }
-
-        public async Task<SamanSalamatResponse> CreateDownvotePost(string userId, int postId, CancellationToken cancellationToken)
-        {
-            var post = await _unitOfWork.PostRepository.GetEntityById(cancellationToken, postId);
-
-            if (post == null)
-            {
-                return new SamanSalamatResponse()
-                {
-                    IsSuccess = false,
-                    Message = "No Post Was Found"
-                };
-            }
-
-            var newVote = new Vote();
-
-            if (await _unitOfWork.PostRepository.HasVotedForPostBefore(postId, Int32.Parse(userId), cancellationToken))
-            {
-
-                var votes = await _unitOfWork.VoteRepository.GetLastUsersPostVote(Int32.Parse(userId), postId, cancellationToken);
-
-                if (votes != null && votes.VotesEnum == VotesEnum.Downvote)
-                    return new SamanSalamatResponse()
-                    {
-                        IsSuccess = false,
-                        Message = "User Has Downvoted Before"
-                    };
-
-                post.DownvotesCount = post.DownvotesCount + 1;
-                post.UpvotesCount = post.UpvotesCount - 1;
-                await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
-
-                newVote.VotesEnum = VotesEnum.Downvote;
-                newVote.PostId = postId;
-                newVote.ApplicationUserId = Int32.Parse(userId);
-
-                await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
-                await _unitOfWork.CommitAsync(cancellationToken);
-
-                return new SamanSalamatResponse()
-                {
-                    IsSuccess = true,
-                    Message = "User Downvoted",
-                    ChangedId = postId,
-                };
-            }
-
-
-            post.UpvotesCount = post.DownvotesCount + 1;
-            await _unitOfWork.PostRepository.UpdateAsync(post, cancellationToken);
-
-            newVote.VotesEnum = VotesEnum.Downvote;
-            newVote.PostId = postId;
-            newVote.ApplicationUserId = Int32.Parse(userId);
-
-            await _unitOfWork.VoteRepository.CreateAsync(newVote, cancellationToken);
-            await _unitOfWork.CommitAsync(cancellationToken);
-
-            return new SamanSalamatResponse()
-            {
-                IsSuccess = true,
-                Message = "User Upvoted",
-                ChangedId = postId,
+                Data = data,
+                RecordsTotal = data.Count,
+                RecordsFiltered = data.Count,
+                Message = "Data Loaded",
+                IsSuccess = true
             };
         }
-
 
     }
 }

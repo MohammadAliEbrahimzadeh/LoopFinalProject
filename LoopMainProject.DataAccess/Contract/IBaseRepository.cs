@@ -1,10 +1,6 @@
 ﻿using LoopMainProject.Model.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
+using Sieve.Models;
 
 namespace LoopMainProject.DataAccess.Contract
 {
@@ -14,6 +10,7 @@ namespace LoopMainProject.DataAccess.Contract
 
         Task<T> UpdateAsync(T t, CancellationToken cancellationToken = new());
 
-        Task<T> GetEntityById(CancellationToken cancellationToken, int id);
+        Task<T> GetEntityById(int id, CancellationToken cancellationToken);
+
     }
 }

@@ -23,8 +23,13 @@ namespace LoopMainProject.Host
         internal static IServiceCollection InjectPostService(this IServiceCollection services) =>
              services.AddScoped<IPostService, PostService>();
 
+        internal static IServiceCollection InjectVotingService(this IServiceCollection services) =>
+        services.AddScoped<IVotingService, VotingService>();
+
+
         internal static IServiceCollection InjectUnitOfWork(this IServiceCollection services) =>
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
 
         internal static IServiceCollection InjectContext(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContextPool<LoopMainProjectContext>(optionsAction =>

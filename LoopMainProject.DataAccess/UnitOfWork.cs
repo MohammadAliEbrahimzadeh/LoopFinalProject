@@ -2,16 +2,19 @@
 using LoopMainProject.DataAccess.Context;
 using LoopMainProject.DataAccess.Contract;
 using LoopMainProject.DataAccess.Repositories;
+using Sieve.Services;
 
 namespace LoopMainProject.DataAccess
 {
     public partial class UnitOfWork : IUnitOfWork
     {
         private readonly LoopMainProjectContext _context;
+        private readonly ISieveProcessor _processor;
 
-        public UnitOfWork(LoopMainProjectContext context)
+        public UnitOfWork(LoopMainProjectContext context, ISieveProcessor processor)
         {
             _context = context;
+            _processor = processor;
         }
 
     }
@@ -35,7 +38,7 @@ namespace LoopMainProject.DataAccess
 
 
         public PostRepository PostRepository =>
-    _postRepository ??= new PostRepository(_context);
+    _postRepository ??= new PostRepository(_context, _processor);
 
         public CommentRepository CommentRepository =>
 _commentRepository ??= new CommentRepository(_context);

@@ -2,11 +2,9 @@
 using LoopMainProject.DataAccess.Contract;
 using LoopMainProject.Model.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
+using Sieve.Models;
+using Sieve.Services;
 
 namespace LoopMainProject.DataAccess.Base
 {
@@ -18,12 +16,14 @@ namespace LoopMainProject.DataAccess.Base
         {
             _dbSet = loopMainProjectContext.Set<T>();
         }
+
+      
     }
     public partial class BaseRepository<T>
     {
         public async Task<T> CreateAsync(T t, CancellationToken cancellationToken) => (await _dbSet.AddAsync(t, cancellationToken)).Entity;
 
-        public async Task<T> GetEntityById(CancellationToken cancellationToken, int id) => (await _dbSet.SingleOrDefaultAsync(a => a.Id == id));
+        public async Task<T> GetEntityById(int id, CancellationToken cancellationToken) => (await _dbSet.SingleOrDefaultAsync(a => a.Id == id));
 
         public async Task<T> UpdateAsync(T t, CancellationToken cancellationToken = new())
         {
@@ -31,6 +31,6 @@ namespace LoopMainProject.DataAccess.Base
             return (await Task.FromResult(_dbSet.Update(t))).Entity;
         }
 
-
+      
     }
 }

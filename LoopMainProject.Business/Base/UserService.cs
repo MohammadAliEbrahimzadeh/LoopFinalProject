@@ -6,6 +6,7 @@ using LoopMainProject.Model.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Shop.Application.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace LoopMainProject.Business.Base
             _unitOfWork = unitOfWork;
         }
 
-     
+
     }
     public partial class UserService
     {
@@ -42,7 +43,8 @@ namespace LoopMainProject.Business.Base
                 var newUser = new ApplicationUser()
                 {
                     Username = UserVM.UserName,
-                    Password = await PasswordHelper.GetHashStringAsync(UserVM.Password)
+                    Password = HashGenerator.GeneratePassword(UserVM.Password)
+                    //Password = await PasswordHelper.GetHashStringAsync(UserVM.Password)
                 };
 
                 await _unitOfWork.UserRepository.CreateAsync(newUser, cancellationToken);
@@ -93,6 +95,28 @@ namespace LoopMainProject.Business.Base
 
             if (user != null)
             {
+                //if (HashGenerator.CheckPassword(user.Password, userVM.Password))
+                //{
+                //    var claims = new List<Claim>
+                //        {
+                //            new Claim(ClaimTypes.NameIdentifier , user.Id.ToString()),
+                //            new("UserName",user.Username),
+                //        };
+
+                //    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                //    var principal = new ClaimsPrincipal(identity);
+
+                //    var properties = new AuthenticationProperties
+                //    {
+                //        IsPersistent = userVM.RememberMe
+                //    };
+
+
+                //    await httpContext.SignInAsync(principal, properties);
+                //    return true;
+                //}
+
+
                 if (user.Password == await PasswordHelper.GetHashStringAsync(userVM.Password))
                 {
                     var claims = new List<Claim>
@@ -123,7 +147,7 @@ namespace LoopMainProject.Business.Base
 
         public async Task LogOut(HttpContext httpContext)
         {
-           await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 
     }

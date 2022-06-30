@@ -25,5 +25,10 @@ namespace LoopMainProject.DataAccess.Repositories
         {
             return await _context.Comments.Include(a => a.Post).SingleOrDefaultAsync(a => a.Id == commentId, cancellationToken);
         }
+
+        public async Task<bool> HasVotedForCommentBefore(int userId, int commentId, CancellationToken cancellationToken)
+        {
+            return await _context.Votes.AnyAsync(v => v.ApplicationUserId == userId && v.CommentId == commentId, cancellationToken);
+        }
     }
 }

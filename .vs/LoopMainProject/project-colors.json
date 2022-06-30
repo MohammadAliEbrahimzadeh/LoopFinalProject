@@ -35,7 +35,17 @@
       "ProjectGuid": "bf850fcf-8d62-416a-8461-701c0bc5223c",
       "DisplayName": "LoopMainProject.Business",
       "ColorIndex": 5
+    },
+    "7ebcfffc-9628-4766-a7ec-6483b0352061": {
+      "ProjectGuid": "7ebcfffc-9628-4766-a7ec-6483b0352061",
+      "DisplayName": "LoopMainProject.Test.Unit",
+      "ColorIndex": 6
+    },
+    "f0588a48-195e-4015-b8cc-afb686e55dcf": {
+      "ProjectGuid": "f0588a48-195e-4015-b8cc-afb686e55dcf",
+      "DisplayName": "LoopMainProject.Intergration",
+      "ColorIndex": 7
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 8
 }

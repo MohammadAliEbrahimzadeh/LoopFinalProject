@@ -23,6 +23,16 @@ namespace LoopMainProject.DataAccess.Repositories
         {
             return await _context.Votes.Where(a => a.ApplicationUserId == userId && a.PostId == postId).OrderByDescending(c => c.CreationDate).FirstOrDefaultAsync();
         }
+
+        public async Task<Vote> GetLastUsersCommentVote(int userId, int commentId, CancellationToken cancellationToken)
+        {
+            return await _context.Votes.Where(a => a.ApplicationUserId == userId && a.CommentId == commentId).OrderByDescending(c => c.CreationDate).FirstOrDefaultAsync();
+        }
+
+        public async Task<Vote> GetLastUsersReplyVote(int userId, int replyId, CancellationToken cancellationToken)
+        {
+            return await _context.Votes.Where(a => a.ApplicationUserId == userId && a.ReplyId == replyId).OrderByDescending(c => c.CreationDate).FirstOrDefaultAsync();
+        }
     }
 }
 

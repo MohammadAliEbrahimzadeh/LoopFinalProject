@@ -1,11 +1,9 @@
 ﻿using LoopMainProject.Business.Contract;
-using LoopMainProject.Common.Helpers;
 using LoopMainProject.Common.ViewModels;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using NLog;
 
 namespace LoopMainProject.Api.Controllers
 {
@@ -15,7 +13,10 @@ namespace LoopMainProject.Api.Controllers
     {
 
         private readonly IUserService _userService;
+
         private readonly IHttpContextAccessor _httpContext;
+
+        private static Logger _logger = LogManager.GetLogger("LoopTestLogRules");
 
         public UserController(IUserService userService, IHttpContextAccessor httpContext)
         {
@@ -25,8 +26,9 @@ namespace LoopMainProject.Api.Controllers
 
         [HttpPost]
         [Route("CreateUserAsync")]
-        public async Task<SamanSalamatResponse?> CreateUserAsync(CreateUserViewModel user, CancellationToken cancellationToken)
+        public async Task<SamanSalamatResponse?> CreateUserAsync([FromBody] CreateUserViewModel user, CancellationToken cancellationToken)
         {
+
             return await _userService.CreateUser(user, cancellationToken);
         }
 
