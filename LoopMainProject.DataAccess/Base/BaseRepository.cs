@@ -25,6 +25,7 @@ namespace LoopMainProject.DataAccess.Base
 
         public async Task<T> GetEntityById(int id, CancellationToken cancellationToken) => (await _dbSet.SingleOrDefaultAsync(a => a.Id == id));
 
+
         public async Task<T> UpdateAsync(T t, CancellationToken cancellationToken = new())
         {
             t.LastUpdated = DateTime.Now;

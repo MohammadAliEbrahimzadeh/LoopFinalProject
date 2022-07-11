@@ -30,5 +30,10 @@ namespace LoopMainProject.DataAccess.Repositories
         {
             return await _context.Votes.AnyAsync(v => v.ApplicationUserId == userId && v.CommentId == commentId, cancellationToken);
         }
+
+        public async Task<List<Comment>> GetCommetsAndRepliesById(int id, CancellationToken cancellationToken)
+        {
+            return await _context.Comments.Include(r => r.Replies).Where(a => a.Id == id).ToListAsync();
+        }
     }
 }

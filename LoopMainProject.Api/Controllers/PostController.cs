@@ -38,9 +38,9 @@ namespace LoopMainProject.Api.Controllers
             {
                 return await _postService.CreatePost(_httpContext.HttpContext.User.GetUserId(), createPostViewModel, cancellationToken);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Todo Nlog
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.CreatePost));
                 throw;
             }
 
@@ -49,15 +49,15 @@ namespace LoopMainProject.Api.Controllers
         [HttpPost]
         [Route("CreateComment/{postId?}")]
         [Authorize]
-        public async Task<SamanSalamatResponse> CreateComment(CreateCommentViewModel createCommentVM, CancellationToken cancellationToken, int postId)
+        public async Task<SamanSalamatResponse> CreateComment(int postId, CreateCommentViewModel createCommentVM, CancellationToken cancellationToken)
         {
             try
             {
                 return await _postService.CreateComment(_httpContext.HttpContext.User.GetUserId(), postId, createCommentVM, cancellationToken);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Todo Nlog
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.CreateComment));
                 throw;
             }
 
@@ -66,15 +66,15 @@ namespace LoopMainProject.Api.Controllers
         [HttpPost]
         [Route("CreateReplay/{commentId?}")]
         [Authorize]
-        public async Task<SamanSalamatResponse> CreateReplay(CreateCommentViewModel createCommentVM, CancellationToken cancellationToken, int commentId, int replyId)
+        public async Task<SamanSalamatResponse> CreateReplay(int commentId, int? replyId, CreateCommentViewModel createCommentVM, CancellationToken cancellationToken)
         {
             try
             {
                 return await _postService.CreateReplay(_httpContext.HttpContext.User.GetUserId(), commentId, replyId, createCommentVM, cancellationToken);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Todo Nlog
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.CreateReplay));
                 throw;
             }
 
@@ -92,7 +92,46 @@ namespace LoopMainProject.Api.Controllers
         [Route("FilterPosts")]
         public async Task<SamanSalamatResponse<List<Post>>> FilterPosts([FromQuery] SieveModel sieveModel, string? title, CancellationToken cancellationToken)
         {
-            return await _postService.SearchPosts(sieveModel, title, cancellationToken);
+            try
+            {
+                return await _postService.SearchPosts(sieveModel, title, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.FilterPosts));
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("ShowPost/{id?}")]
+        public async Task<SamanSalamatResponse<Post>> GetPost(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _postService.GetPostById(id, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.GetPost));
+                throw;
+            }
+
+        }
+
+        [HttpGet]
+        [Route("GetCommentList/{id?}")]
+        public async Task<SamanSalamatResponse<List<Comment>>> GetCommentList(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _postService.GetCommentsById(id, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("execption:" + e + "  controller:" + nameof(PostController) + "  action:" + nameof(PostController.GetCommentList));
+                throw;
+            }
         }
     }
 

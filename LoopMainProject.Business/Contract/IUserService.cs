@@ -13,7 +13,7 @@ namespace LoopMainProject.Business.Contract
     {
         Task<SamanSalamatResponse?> CreateUser(CreateUserViewModel userVM, CancellationToken cancellationToken);
 
-        Task<SamanSalamatResponse?> UpdateUser(int id, UpdateUserViewModel userVM, CancellationToken cancellationToken);
+        Task<SamanSalamatResponse?> UpdateUser(string id, UpdateUserViewModel userVM, CancellationToken cancellationToken);
 
         Task<bool> IsUsernameExists(string userName, CancellationToken cancellationToken);
 

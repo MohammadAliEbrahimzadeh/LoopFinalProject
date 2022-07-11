@@ -24,5 +24,11 @@ namespace LoopMainProject.Business.Contract
     public partial interface IPostService
     {
         Task<SamanSalamatResponse<List<Post>>?> SearchPosts(SieveModel model, string title, CancellationToken cancellationToken);
+
+        Task<SamanSalamatResponse<List<Post>>?> SearchPostsWithMonth(CancellationToken cancellationToken);
+
+        Task<SamanSalamatResponse<Post>> GetPostById(int id, CancellationToken cancellationToken);
+
+        Task<SamanSalamatResponse<List<Comment>>> GetCommentsById(int id, CancellationToken cancellationToken);
     }
 }

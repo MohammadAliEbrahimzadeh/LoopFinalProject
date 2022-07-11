@@ -175,5 +175,65 @@ namespace LoopMainProject.Business.Base
             };
         }
 
+        public async Task<SamanSalamatResponse<List<Post>>> SearchPostsWithMonth(CancellationToken cancellationToken)
+        {
+            var data = await _unitOfWork.PostRepository.LoadAllPostsWithoutSieveModelAsync(cancellationToken);
+
+
+            var date = data.Where(x => x.CreationDate.Month == DateTime.Now.Month).ToList();
+
+            return new SamanSalamatResponse<List<Post>>
+            {
+                Data = date,
+                RecordsTotal = date.Count,
+                RecordsFiltered = date.Count,
+                Message = "Data Loaded",
+                IsSuccess = true
+            };
+        }
+
+        public async Task<SamanSalamatResponse<Post>> GetPostById(int id, CancellationToken cancellationToken)
+        {
+            var post = await _unitOfWork.PostRepository.GetPostAndCommentsAndRepliesByPostId(id, cancellationToken);
+
+            if (post == null)
+            {
+                return new SamanSalamatResponse<Post>
+                {
+                    Message = "Data Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            return new SamanSalamatResponse<Post>
+            {
+                Data = post,
+                CommentsCount = post.Comments.Count(),
+                ChangedId = post.Id,
+                IsSuccess = true
+            };
+
+        }
+
+        public async Task<SamanSalamatResponse<List<Comment>>> GetCommentsById(int id, CancellationToken cancellationToken)
+        {
+            var comments = await _unitOfWork.CommentRepository.GetCommetsAndRepliesById(id, cancellationToken);
+
+            if (comments == null)
+            {
+                return new SamanSalamatResponse<List<Comment>>
+                {
+                    Message = "Data Not Found",
+                    IsSuccess = false
+                };
+            }
+
+            return new SamanSalamatResponse<List<Comment>>
+            {
+                Data = comments,
+                RecordsTotal = comments.Count(),
+                IsSuccess = true
+            };
+        }
     }
 }

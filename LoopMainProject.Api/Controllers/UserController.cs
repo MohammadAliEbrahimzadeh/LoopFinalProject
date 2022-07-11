@@ -1,4 +1,5 @@
 ﻿using LoopMainProject.Business.Contract;
+using LoopMainProject.Common.Helpers;
 using LoopMainProject.Common.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +10,7 @@ namespace LoopMainProject.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController
+    public partial class UserController
     {
 
         private readonly IUserService _userService;
@@ -24,19 +25,40 @@ namespace LoopMainProject.Api.Controllers
             _httpContext = httpContext;
         }
 
+    }
+
+    public partial class UserController
+    {
+    
         [HttpPost]
         [Route("CreateUserAsync")]
         public async Task<SamanSalamatResponse?> CreateUserAsync([FromBody] CreateUserViewModel user, CancellationToken cancellationToken)
         {
-
-            return await _userService.CreateUser(user, cancellationToken);
+            try
+            {
+                return await _userService.CreateUser(user, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("execption:" + e + "  controller:" + nameof(UserController) + "  action:" + nameof(UserController.CreateUserAsync));
+                throw;
+            }
         }
 
         [HttpPut]
         [Route("UpdateUserAsync")]
-        public async Task<SamanSalamatResponse?> UpdateUserAsync(int id, UpdateUserViewModel user, CancellationToken cancellationToken)
+        [Authorize]
+        public async Task<SamanSalamatResponse?> UpdateUserAsync(UpdateUserViewModel user, CancellationToken cancellationToken)
         {
-            return await _userService.UpdateUser(id, user, cancellationToken);
+            try
+            {
+                return await _userService.UpdateUser(_httpContext.HttpContext.User.GetUserId(), user, cancellationToken);
+            }
+            catch (Exception e)
+            {
+                _logger.Error("execption:" + e + "  controller:" + nameof(UserController) + "  action:" + nameof(UserController.UpdateUserAsync));
+                throw;
+            }
         }
 
 
@@ -67,7 +89,7 @@ namespace LoopMainProject.Api.Controllers
             }
             catch (Exception e)
             {
-                //ToDo Nlog
+                _logger.Error("execption:" + e + "  controller:" + nameof(UserController) + "  action:" + nameof(UserController.Login));
                 throw;
             }
         }
@@ -88,9 +110,9 @@ namespace LoopMainProject.Api.Controllers
                     IsSuccess = true
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //To Do Nlog
+                _logger.Error("execption:" + e + "  controller:" + nameof(UserController) + "  action:" + nameof(UserController.LogOut));
                 throw;
             }
 

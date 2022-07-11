@@ -18,6 +18,8 @@ public class SamanSalamatResponse<T>
 
 	public dynamic? ChangedId { get; set; }
 
+	public long CommentsCount { get; set; }
+
 	#endregion
 }
 
@@ -38,6 +40,7 @@ public class SamanSalamatResponse
 	public string? Message { get; set; }
 
 	public dynamic? ChangedId { get; set; }
+
 
 	#endregion
 }

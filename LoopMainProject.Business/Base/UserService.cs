@@ -36,7 +36,6 @@ namespace LoopMainProject.Business.Base
 
         public async Task<SamanSalamatResponse?> CreateUser(CreateUserViewModel UserVM, CancellationToken cancellationToken)
         {
-
             if (!await _unitOfWork.UserRepository.UserNameExists(UserVM.UserName, cancellationToken))
             {
 
@@ -65,9 +64,9 @@ namespace LoopMainProject.Business.Base
             };
         }
 
-        public async Task<SamanSalamatResponse?> UpdateUser(int id, UpdateUserViewModel userVM, CancellationToken cancellationToken)
+        public async Task<SamanSalamatResponse?> UpdateUser(string id, UpdateUserViewModel userVM, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.UserRepository.LoadByIdAsync(id, cancellationToken);
+            var user = await _unitOfWork.UserRepository.LoadByIdAsync(Int32.Parse(id), cancellationToken);
 
             if (user == null)
             {

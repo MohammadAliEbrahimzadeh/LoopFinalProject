@@ -34,7 +34,7 @@ namespace LoopMainProject.DataAccess.Repositories
          CancellationToken cancellationToken = new())
         {
             var query = _context.Posts.AsNoTracking().AsQueryable();
-    
+
             return await _processor.Apply(sieveModel, query).ToListAsync(cancellationToken);
         }
 
@@ -43,6 +43,17 @@ namespace LoopMainProject.DataAccess.Repositories
         {
             var query = _context.Posts.AsNoTracking().AsQueryable();
             return await _processor.Apply(sieveModel, query).ToListAsync(cancellationToken);
+        }
+
+
+        public async Task<Post> GetPostAndCommentsAndRepliesByPostId(int id, CancellationToken cancellationToken)
+        {
+            return await _context.Posts.Include(c => c.Comments).ThenInclude(r => r.Replies).Where(a => a.Id == id).SingleOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<List<Post>> LoadAllPostsWithoutSieveModelAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Posts.ToListAsync(cancellationToken);
         }
     }
 }
